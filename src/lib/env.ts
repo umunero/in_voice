@@ -18,7 +18,7 @@ export function validateEnv() {
             console.error(error); // Log other potential errors
         }
         // Exit the process to prevent the app from starting with invalid config
-        process.exit(1);
+        throw new Error("Invalid environment variables");
     }
 }
 

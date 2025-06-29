@@ -6,6 +6,10 @@ import { getValidedLocale, isValidLocale } from "@/i18n/request";
 
 export const withAuth: MiddlewareFactory = (next) => {
     return async (request: NextRequest, event: NextFetchEvent) => {
+        if (isSkipAuth(request)) {
+            return next(request, event)
+        }
+
         const locale = request.cookies.get("NEXT_LOCALE")?.value;
         const currentUrlLocale = request.nextUrl.pathname.split('/')[1]; // Get locale from URL if present
         let effectiveLocale = getValidedLocale(locale);
@@ -45,4 +49,16 @@ function isAuthPage(request: NextRequest): boolean {
     const { pathname } = request.nextUrl
     return pathname.includes(AppRoutes.LOGIN) ||
         pathname.includes("/test")
+}
+
+/**
+ * Route that skip auth
+ * 
+ * @param request The NextRequest object.
+ * @returns {boolean} True if the pathname is an skipped route, false otherwise.
+ */
+
+function isSkipAuth(request: NextRequest): boolean {
+    const { pathname } = request.nextUrl
+    return pathname.includes("/sample_menu")
 }

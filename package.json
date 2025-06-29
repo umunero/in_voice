@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-symbols/svg-200": "^0.31.9",
     "archiver": "^7.0.1",
     "clsx": "^2.1.1",
     "crypto-js": "^4.2.0",
